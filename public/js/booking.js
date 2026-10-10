@@ -284,6 +284,7 @@ export function createBooker({ config, root, formatPrice, formatDuration, waLink
           <button type="button" class="btn btn-outline" data-action="ics"><svg aria-hidden="true"><use href="#i-calendar"/></svg>${t('b.icsBtn')}</button>
         </div>
         <button type="button" class="btn btn-text" data-action="restart">${t('b.again')}</button>
+        <p class="manage-link"><a href="/manage.html?ref=${encodeURIComponent(r.ref)}">${t('b.manageLink')}</a></p>
       </div>`;
   }
 

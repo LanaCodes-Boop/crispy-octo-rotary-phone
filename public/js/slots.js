@@ -93,3 +93,7 @@ export function getSlots({ config, date, minutes, bookings = [], blocks = [], no
   }
   return slots;
 }
+
+/** Minutes from `now` (as returned by nowInZone) until `date` at `time`; negative once that moment has passed. */
+export const minutesUntil = (date, time, now) =>
+  (dayNumber(date) - dayNumber(now.date)) * 1440 + toMin(time) - now.minutes;

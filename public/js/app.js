@@ -164,3 +164,29 @@ applyTranslations();
 syncLangButtons();
 renderAll();
 booker.start();
+
+// --- Structured data for search engines ---------------------------------------
+function injectStructuredData() {
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'NailSalon',
+    name: config.name,
+    description: $('meta[name="description"]')?.content || config.tagline,
+    image: new URL('images/og.jpg', location.href).href,
+    url: location.origin,
+    telephone: config.contact.phoneDisplay,
+    priceRange: config.currency,
+    address: { '@type': 'PostalAddress', addressLocality: 'Lelydorp', addressRegion: 'Wanica', addressCountry: 'SR' },
+    openingHoursSpecification: days
+      .map((day) => [day, config.hours[day.slice(0, 3).toLowerCase()]])
+      .filter(([, hours]) => hours)
+      .map(([day, [opens, closes]]) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: day, opens, closes })),
+    sameAs: [config.contact.facebook],
+  };
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify(data);
+  document.head.append(script);
+}
+injectStructuredData();
