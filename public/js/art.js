@@ -44,6 +44,7 @@ const gold = (id) => `url(#${id}-gold)`;
 export const DESIGNS = [
   {
     name: 'Burgundy Glaze',
+    code: 'almond.l.741634.gloss.french.d6aa4f.0.2', // same look in the Nail Studio
     tag: 'Gel polish',
     bg: ['#fbefec', '#f0d2d2'],
     base: ['#b0365a', '#741634', '#3d0a1b'],
@@ -51,6 +52,7 @@ export const DESIGNS = [
   },
   {
     name: 'Milky French',
+    code: 'almond.m.f4e7e1.gloss.french.ffffff.0.2', // same look in the Nail Studio
     tag: 'Acrylic',
     bg: ['#fff8f3', '#f3dcd6'],
     base: ['#f9e6e4', '#efc9cc'],
@@ -58,6 +60,7 @@ export const DESIGNS = [
   },
   {
     name: 'Gold Chrome',
+    code: 'almond.l.c99a3c.chrome.none.ffffff.0.2', // same look in the Nail Studio
     tag: 'Chrome',
     bg: ['#4a0c1f', '#1f040d'],
     base: ['#fff4d1', '#c99a3c', '#7d5518'],
@@ -66,6 +69,7 @@ export const DESIGNS = [
   },
   {
     name: 'Baby Boomer Glitter',
+    code: 'almond.l.f3c9c9.glitter.ombre.ffffff.0.2', // same look in the Nail Studio
     tag: 'Ombré',
     bg: ['#fdf3ef', '#f2d7d6'],
     base: ['#fffaf6', '#f6d6dc', '#e48fa1'],
@@ -73,6 +77,7 @@ export const DESIGNS = [
   },
   {
     name: 'Rosé Florals',
+    code: 'almond.m.d9a98c.gloss.flowers.ffffff.0.2', // same look in the Nail Studio
     tag: 'Nail art',
     bg: ['#f6e7e0', '#e9cfc6'],
     base: ['#f4dcd3', '#e6bcb0'],
@@ -83,6 +88,7 @@ export const DESIGNS = [
   },
   {
     name: 'Cherry Hearts',
+    code: 'almond.l.1d1418.gloss.hearts.c8102e.0.2', // same look in the Nail Studio
     tag: 'Nail art',
     bg: ['#fcf0f1', '#f2cfd6'],
     base: ['#5a1027', '#12020a'],
@@ -94,6 +100,7 @@ export const DESIGNS = [
   },
   {
     name: 'Marble Luxe',
+    code: 'almond.l.f4e7e1.gloss.marble.d6aa4f.0.2', // same look in the Nail Studio
     tag: 'Polygel',
     bg: ['#f8f3ee', '#e6dbd2'],
     base: ['#ffffff', '#f0ebe7'],
@@ -104,6 +111,7 @@ export const DESIGNS = [
   },
   {
     name: 'Midnight Sparkle',
+    code: 'almond.l.5e0f2a.glitter.none.ffffff.0.2', // same look in the Nail Studio
     tag: 'Glitter',
     bg: ['#3d0a1b', '#12020a'],
     base: ['#6b1430', '#1f040d'],

@@ -3,3 +3,4 @@ data/*.json
 data/*.tmp
 .env
 .DS_Store
+.claude/worktrees/

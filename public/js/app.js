@@ -2,6 +2,8 @@ import { applyTranslations, getLang, locale, onLangChange, setLang, t } from './
 import { DESIGNS, nailSetSVG } from './art.js';
 import { nowInZone, weekdayKey } from './slots.js';
 import { createBooker } from './booking.js';
+import { createStudio } from './studio.js';
+import { decodeDesign, handSVG } from './designer-art.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -24,6 +26,25 @@ export const waLink = (config, text) =>
 
 const config = await fetch('config.json').then((r) => r.json());
 const booker = createBooker({ config, root: $('#booker'), formatPrice, formatDuration, waLink });
+const studio = createStudio({
+  config,
+  root: $('#studio-app'),
+  formatPrice,
+  formatDuration,
+  onBook: (design) => {
+    booker.preselect({ design });
+    $('#book').scrollIntoView({ behavior: 'smooth' });
+  },
+});
+
+// Shared designs arrive as #design=<code>; open them straight in the Nail Studio.
+function openSharedDesign() {
+  const code = decodeURIComponent(location.hash.match(/^#design=(.+)$/)?.[1] || '');
+  if (code && studio.load(code, { keepSkin: false })) {
+    requestAnimationFrame(() => $('#studio').scrollIntoView());
+  }
+}
+window.addEventListener('hashchange', openSharedDesign);
 
 // --- Services ---------------------------------------------------------------
 function renderServices() {
@@ -54,10 +75,42 @@ function renderStyles() {
         <div class="style-art">${nailSetSVG(d, i)}</div>
         <figcaption>
           <div><h3>${d.name}</h3><p>${d.tag}</p></div>
-          <a class="btn-link" href="#book" data-look="${d.name}">${t('styles.book')} <span aria-hidden="true">→</span></a>
+          <div class="style-actions">
+            <a class="btn-link" href="#studio" data-try="${d.code}"><span aria-hidden="true">✨</span> ${t('styles.try')}</a>
+            <a class="btn-link" href="#book" data-look="${d.name}">${t('services.book')} <span aria-hidden="true">→</span></a>
+          </div>
         </figcaption>
       </figure>`,
   ).join('');
+}
+
+// --- Hero: a live hand cycling through the Style Menu looks (and skin tones) ----------
+function startHeroHand() {
+  const hand = $('.hero-hand');
+  const label = $('.hh-label');
+  const layers = $$('.hh-layer', hand);
+  const skins = [2, 4, 1, 5, 3, 0];
+  let i = 0;
+  let front = 0;
+  const show = () => {
+    const look = DESIGNS[i % DESIGNS.length];
+    const back = layers[1 - front];
+    back.innerHTML = handSVG({ ...decodeDesign(look.code), skin: skins[i % skins.length] }, { label: look.name });
+    back.classList.add('on');
+    layers[front].classList.remove('on');
+    front = 1 - front;
+    $('.hh-name', label).textContent = look.name;
+    hand.dataset.try = look.code;
+    label.dataset.try = look.code;
+    i++;
+  };
+  hand.hidden = false;
+  label.hidden = false;
+  $('.hero-visual').classList.add('hero-live');
+  show();
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setInterval(() => document.hidden || show(), 3400);
+  }
 }
 
 // --- Hours, contact -----------------------------------------------------------
@@ -109,6 +162,7 @@ onLangChange(() => {
   syncLangButtons();
   renderAll();
   $$('.reveal').forEach((el) => el.classList.add('in')); // no fade-in replay when switching language
+  studio.render();
   booker.render();
 });
 
@@ -118,6 +172,8 @@ document.addEventListener('click', (e) => {
   const lookLink = e.target.closest('[data-look]');
   if (svcLink) booker.preselect({ service: svcLink.dataset.bookService });
   if (lookLink) booker.preselect({ look: lookLink.dataset.look });
+  const tryLink = e.target.closest('[data-try]');
+  if (tryLink) studio.load(tryLink.dataset.try);
 });
 
 // --- Header & mobile menu -------------------------------------------------
@@ -163,4 +219,7 @@ document.documentElement.lang = getLang();
 applyTranslations();
 syncLangButtons();
 renderAll();
+studio.render();
+startHeroHand();
+openSharedDesign();
 booker.start();

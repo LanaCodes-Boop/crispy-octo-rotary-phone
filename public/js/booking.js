@@ -1,5 +1,6 @@
 import { getLang, locale, t } from './i18n.js';
 import { addDays, getSlots, nowInZone, servicesFor, toMin, totalMinutes, totalPrice } from './slots.js';
+import { decodeDesign, handSVG } from './designer-art.js';
 
 const escapeHtml = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -31,6 +32,7 @@ export function createBooker({ config, root, formatPrice, formatDuration, waLink
     step: 1,
     selected: new Set(),
     look: '',
+    design: null,
     month: null,
     date: null,
     time: null,
@@ -138,7 +140,7 @@ export function createBooker({ config, root, formatPrice, formatDuration, waLink
     return `
       <h3 tabindex="-1">${t('b.chooseTitle')}</h3>
       <p class="muted">${t('b.chooseHint')}</p>
-      ${state.look ? `<p class="look-chip">✨ ${escapeHtml(t('b.lookNote', { look: state.look }))} <button type="button" data-action="clear-look" aria-label="Remove">×</button></p>` : ''}
+      ${chip()}
       <div class="svc-options">
         ${config.services
           .map(
@@ -287,11 +289,32 @@ export function createBooker({ config, root, formatPrice, formatDuration, waLink
       </div>`;
   }
 
+  function chip() {
+    if (state.design) {
+      return `<p class="look-chip design-chip">${handSVG(decodeDesign(state.design.code), { className: 'chip-hand' })}<span><small>${t('b.yourDesign')}</small>${escapeHtml(state.design.label)}</span><button type="button" data-action="clear-design" aria-label="Remove">×</button></p>`;
+    }
+    if (state.look) {
+      return `<p class="look-chip">✨ ${escapeHtml(t('b.lookNote', { look: state.look }))} <button type="button" data-action="clear-look" aria-label="Remove">×</button></p>`;
+    }
+    return '';
+  }
+
+  const addNote = (note) => {
+    if (!state.form.notes.includes(note)) state.form.notes = [note, state.form.notes].filter(Boolean).join('\n');
+  };
+  const removeNote = (note) => {
+    state.form.notes = state.form.notes
+      .split('\n')
+      .filter((line) => line !== note)
+      .join('\n');
+  };
+
   function viewSummary() {
     const list = services();
     const lang = getLang();
     return `
       <h4>${t('b.summary')}</h4>
+      ${state.design ? `<div class="sum-design">${handSVG(decodeDesign(state.design.code), { className: 'sum-hand', label: state.design.label })}</div>` : ''}
       ${
         list.length
           ? `<ul class="sum-list">${list
@@ -331,6 +354,7 @@ export function createBooker({ config, root, formatPrice, formatDuration, waLink
     };
     let text = t(ref ? 'b.waBooked' : 'b.waRequest', vars);
     if (state.form.notes) text += `\n${t('b.waNotes', { notes: state.form.notes })}`;
+    if (state.design) text += `\n${t('b.waDesign', { link: `${location.origin}${location.pathname}#design=${state.design.code}` })}`;
     return text;
   }
 
@@ -389,6 +413,7 @@ export function createBooker({ config, root, formatPrice, formatDuration, waLink
           time: state.time,
           ...state.form,
           website: data.website,
+          design: state.design?.code,
           lang: getLang(),
         }),
       });
@@ -460,13 +485,17 @@ export function createBooker({ config, root, formatPrice, formatDuration, waLink
       case 'next-month':
         return showMonth(nextMonth(state.month));
       case 'clear-look':
-        if (state.form.notes.startsWith(t('b.lookNote', { look: state.look }))) state.form.notes = '';
+        removeNote(t('b.lookNote', { look: state.look }));
         state.look = '';
+        return render();
+      case 'clear-design':
+        removeNote(t('b.designNote', { design: state.design.label }));
+        state.design = null;
         return render();
       case 'ics':
         return downloadIcs();
       case 'restart':
-        Object.assign(state, { selected: new Set(), look: '', result: null, month: null });
+        Object.assign(state, { selected: new Set(), look: '', design: null, result: null, month: null });
         state.form.notes = '';
         resetSchedule();
         return go(1);
@@ -484,13 +513,19 @@ export function createBooker({ config, root, formatPrice, formatDuration, waLink
       }
       render();
     },
-    preselect({ service, look }) {
+    /** Pre-fills the booking from a service button, a Style Menu look or a Nail Studio design. */
+    preselect({ service, look, design }) {
       if (state.step === 4) Object.assign(state, { selected: new Set(), result: null });
       if (service) state.selected.add(service);
       if (look) {
         state.look = look;
-        const note = t('b.lookNote', { look });
-        if (!state.form.notes.includes(note)) state.form.notes = [note, state.form.notes].filter(Boolean).join('\n');
+        addNote(t('b.lookNote', { look }));
+      }
+      if (design) {
+        if (state.design) removeNote(t('b.designNote', { design: state.design.label }));
+        state.design = { code: design.code, label: design.label };
+        state.selected = new Set(design.services);
+        addNote(t('b.designNote', { design: design.label }));
       }
       resetSchedule();
       go(1, { focus: false });

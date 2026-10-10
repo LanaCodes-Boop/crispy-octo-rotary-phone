@@ -6,6 +6,7 @@ import { readFile, writeFile, rename, mkdir, stat } from 'node:fs/promises';
 import { randomBytes, randomUUID, timingSafeEqual, createHash } from 'node:crypto';
 import { extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { DESIGN_PATTERN } from './public/js/designer-art.js';
 import {
   addDays,
   getSlots,
@@ -121,6 +122,8 @@ function parseBookingInput(body) {
   const email = clean(body.email, 120);
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new HttpError(400, 'Please enter a valid email address.');
 
+  const design = typeof body.design === 'string' && DESIGN_PATTERN.test(body.design) ? body.design : '';
+
   const services = servicesFor(config, ids);
   return {
     date: body.date,
@@ -132,6 +135,7 @@ function parseBookingInput(body) {
     phone,
     email,
     notes: cleanMultiline(body.notes, 600),
+    design,
     lang: body.lang === 'nl' ? 'nl' : 'en',
   };
 }

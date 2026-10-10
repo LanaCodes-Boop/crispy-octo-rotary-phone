@@ -111,3 +111,14 @@ test('admin can log in, confirm, cancel and block time', async () => {
   assert.equal(manual.status, 201);
   assert.equal(manual.body.booking.status, 'confirmed');
 });
+
+test('stores a valid Nail Studio design with the booking and ignores invalid ones', async () => {
+  const { body } = await call('/api/admin/login', { method: 'POST', body: { password: 'secret-test' } });
+  const token = body.token;
+  const design = 'coffin.xl.741634.chrome.french.d6aa4f.1.3';
+  const late = { ...guest, time: config.hours[weekdayKey(day)][1].replace(/^(\d+)/, (h) => String(h - 2).padStart(2, '0')) };
+  const ok = await call('/api/admin/bookings', { method: 'POST', token, body: { ...late, design, force: true } });
+  assert.equal(ok.body.booking.design, design);
+  const bad = await call('/api/admin/bookings', { method: 'POST', token, body: { ...late, design: '<script>', force: true } });
+  assert.equal(bad.body.booking.design, '');
+});
