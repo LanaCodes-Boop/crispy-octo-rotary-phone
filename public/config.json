@@ -32,7 +32,8 @@
     "minNoticeHours": 3,
     "maxDaysAhead": 60,
     "bufferMinutes": 0,
-    "autoConfirm": false
+    "autoConfirm": false,
+    "cancelNoticeHours": 24
   },
 
   "services": [

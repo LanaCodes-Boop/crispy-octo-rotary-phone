@@ -13,6 +13,7 @@ import {
   getSlots,
   isValidDate,
   isValidTime,
+  minutesUntil,
   nowInZone,
   servicesFor,
   totalMinutes,
@@ -159,15 +160,16 @@ function overlapsExisting(date, time, minutes, ignoreId) {
   );
 }
 
-async function notify(booking) {
+async function notify(booking, event = 'new') {
   if (!NOTIFY_WEBHOOK_URL) return;
   const names = servicesFor(config, booking.services).map((s) => s.name.en).join(', ');
-  const text = `💅 New booking ${booking.ref}: ${booking.name} (${booking.phone}) — ${names} on ${booking.date} at ${booking.time}`;
+  const what = event === 'cancelled' ? '🚫 Booking cancelled by client' : '💅 New booking';
+  const text = `${what} ${booking.ref}: ${booking.name} (${booking.phone}) — ${names} on ${booking.date} at ${booking.time}`;
   try {
     await fetch(NOTIFY_WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, content: text, booking }),
+      body: JSON.stringify({ text, content: text, event, booking }),
       signal: AbortSignal.timeout(5000),
     });
   } catch (err) {
@@ -175,14 +177,25 @@ async function notify(booking) {
   }
 }
 
-// Light per-IP throttle for the public booking endpoint.
+// Light per-IP throttle for the public endpoints; each bucket is counted separately.
 const recentByIp = new Map();
-function throttle(ip, max = 8, windowMs = 60 * 60 * 1000) {
+function throttle(ip, max = 8, windowMs = 60 * 60 * 1000, bucket = 'booking') {
   const now = Date.now();
-  const hits = (recentByIp.get(ip) || []).filter((t) => now - t < windowMs);
-  if (hits.length >= max) throw new HttpError(429, 'Too many booking attempts. Please message us on WhatsApp.');
+  const key = `${bucket}|${ip}`;
+  const hits = (recentByIp.get(key) || []).filter((t) => now - t < windowMs);
+  if (hits.length >= max) throw new HttpError(429, `Too many ${bucket} attempts. Please message us on WhatsApp.`);
   hits.push(now);
-  recentByIp.set(ip, hits);
+  recentByIp.set(key, hits);
+}
+
+/** Finds a booking for the "manage my booking" page: the reference plus the last 7 digits of the phone must match. */
+const phoneTail = (phone) => String(phone || '').replace(/\D/g, '').slice(-7);
+function findOwnBooking(body) {
+  const ref = clean(body.ref, 20).toUpperCase();
+  const tail = phoneTail(clean(body.phone, 30));
+  const booking = tail.length === 7 && db.bookings.find((b) => b.ref === ref && phoneTail(b.phone) === tail);
+  if (!booking) throw new HttpError(404, "We couldn't find a booking with those details.");
+  return booking;
 }
 
 // Admin sessions are signed tokens ("<expiry>.<signature>"), so they work across serverless instances.
@@ -252,6 +265,33 @@ async function api(req, res, url) {
     await persist();
     await notify(booking); // awaited: serverless functions may freeze once the response is sent
     return json(res, 201, { booking: publicBooking(booking) });
+  }
+
+  // --- Client self-service ("Manage my booking") --------------------------
+  if (pathname === '/api/bookings/lookup' && method === 'POST') {
+    throttle(req.socket.remoteAddress || 'unknown', 20, 60 * 60 * 1000, 'lookup');
+    const booking = findOwnBooking(await readBody(req));
+    return json(res, 200, { booking: publicBooking(booking) });
+  }
+
+  if (pathname === '/api/bookings/cancel' && method === 'POST') {
+    throttle(req.socket.remoteAddress || 'unknown', 20, 60 * 60 * 1000, 'lookup');
+    const booking = findOwnBooking(await readBody(req));
+    if (booking.status === 'cancelled') throw new HttpError(409, 'This appointment is already cancelled.');
+    if (booking.status !== 'pending' && booking.status !== 'confirmed') {
+      throw new HttpError(409, 'This appointment can no longer be cancelled online.');
+    }
+    const noticeHours = config.booking.cancelNoticeHours ?? 24;
+    if (minutesUntil(booking.date, booking.time, nowInZone(config.timezone)) < noticeHours * 60) {
+      throw new HttpError(
+        409,
+        `Online cancellation closes ${noticeHours} hours before your appointment. Please message Lis on WhatsApp instead.`,
+      );
+    }
+    Object.assign(booking, { status: 'cancelled', cancelledBy: 'client', updatedAt: new Date().toISOString() });
+    await persist();
+    notify(booking, 'cancelled');
+    return json(res, 200, { booking: publicBooking(booking) });
   }
 
   // --- Admin -------------------------------------------------------------
