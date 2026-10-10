@@ -10,7 +10,6 @@ import {
   decodeDesign,
   encodeDesign,
   handSVG,
-  luminance,
   nailSVG,
 } from './designer-art.js';
 
@@ -168,7 +167,6 @@ export function createStudio({ config, root, formatPrice, formatDuration, onBook
     void stage.offsetWidth; // restart the animation
     stage.classList.add('bump');
     root.style.setProperty('--studio-accent', `#${design.color}`);
-    root.classList.toggle('is-light', luminance(design.color) > 0.72);
 
     caption.textContent = describeDesign(design);
     const services = config.services.filter((s) => servicesForDesign(config, design).includes(s.id));
@@ -284,7 +282,7 @@ export function createStudio({ config, root, formatPrice, formatDuration, onBook
     const action = e.target.closest('[data-studio]');
     if (!action) return;
     if (action.dataset.studio === 'surprise') surprise();
-    if (action.dataset.studio === 'save') saveImage(action);
+    if (action.dataset.studio === 'save') saveImage(action).catch(() => {}); // export is a nice-to-have
     if (action.dataset.studio === 'book') {
       onBook({
         code: encodeDesign(design),

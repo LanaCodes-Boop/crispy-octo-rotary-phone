@@ -2,7 +2,8 @@
 
 Website for **You-nique by Lis**, nail salon in Lelydorp, Suriname — *"You break it? We fake it 🥰"*.
 
-- Burgundy & gold design based on the salon's logo, with hand-drawn SVG artwork (nail swatch fan, polish bottle, "kintsugi" nail repair, 8 illustrated nail styles)
+- Burgundy & gold design based on the salon's logo, with hand-drawn SVG artwork (a live hand in the hero cycling through looks and skin tones, polish bottle, "kintsugi" nail repair, 8 illustrated nail styles)
+- **Nail Studio**: visitors design their set on an illustrated hand — shape, length, colour, finish (glossy, matte, chrome, glitter, cat eye), nail art, gold accent nail and skin tone — see a price/time estimate, save it as a branded image to share, and **book that exact design** (Lis sees it with the booking)
 - English / Dutch language switch (remembers the visitor's choice)
 - Services & prices, "Style Menu" gallery, About Lis, opening hours, location, booking policies
 - **Online booking**: choose services → pick a day and time (live availability) → enter details → booking reference, WhatsApp message to Lis, and "add to calendar" file
@@ -63,6 +64,14 @@ Run the tests with `npm test`.
 
 **Free alternative — static site only.** The `public/` folder also works on its own (GitHub Pages, Netlify, …). Without the server there is no live availability or dashboard. The booking form then sends the request to Lis as a pre-filled WhatsApp message, and she confirms the time herself.
 
+## Nail Studio
+
+- Every option button shows a live mini-nail in the client's current colour.
+- **Book this design** picks the matching services (extensions for long/coffin/stiletto, plus the nail art add-on when needed), pre-fills the notes, shows the design in the booking summary, stores it with the booking, and adds a link to it in the WhatsApp message.
+- **Save image** creates a 1080×1350 branded picture (on phones it opens the share sheet — perfect for WhatsApp/Instagram stories).
+- Links like `https://your-site/#design=almond.l.741634.gloss.french.d6aa4f.0.2` open a design straight in the studio. The Style Menu's **Try it on** buttons use the same codes (see `code:` in `public/js/art.js`).
+- Colours, nail-art colours and skin tones live at the top of `public/js/studio.js` and `public/js/designer-art.js`.
+
 ## How a booking flows
 
 1. The client picks services, a free time and enters their name and WhatsApp number.
@@ -82,7 +91,9 @@ public/
   js/app.js          Page rendering, language switch, menus
   js/booking.js      Booking widget
   js/slots.js        Availability rules (shared by browser and server)
-  js/art.js          Generated nail-style illustrations
+  js/art.js          Generated nail-style illustrations (Style Menu)
+  js/studio.js       Nail Studio controls, estimate, image export
+  js/designer-art.js Illustrated hand + nail renderer (shared with server/admin)
   js/i18n.js         English & Dutch text                       ← edit me
   js/admin.js        Dashboard logic
 test/                Automated tests (npm test)
