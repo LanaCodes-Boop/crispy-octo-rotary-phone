@@ -290,7 +290,7 @@ async function api(req, res, url) {
     }
     Object.assign(booking, { status: 'cancelled', cancelledBy: 'client', updatedAt: new Date().toISOString() });
     await persist();
-    notify(booking, 'cancelled');
+    await notify(booking, 'cancelled');
     return json(res, 200, { booking: publicBooking(booking) });
   }
 
@@ -397,6 +397,7 @@ const MIME = {
   '.css': 'text/css; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
