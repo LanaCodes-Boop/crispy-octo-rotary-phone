@@ -1,0 +1,279 @@
+// English / Dutch copy. Dutch is the everyday language for most clients in Suriname.
+
+const dict = {
+  en: {
+    'nav.services': 'Services',
+    'nav.styles': 'Styles',
+    'nav.about': 'About Lis',
+    'nav.visit': 'Visit',
+    'nav.book': 'Book now',
+
+    'hero.eyebrow': 'Nail Salon · Lelydorp, Suriname',
+    'hero.lead': 'Acrylics, polygel, gel polish and custom nail art — crafted by Lis for nails as unique as you are.',
+    'hero.cta1': 'Book your appointment',
+    'hero.cta2': 'View prices',
+    'hero.badge1': 'Facebook followers',
+    'hero.badge2': 'online booking',
+    'hero.badge3': 'personal attention',
+
+    'services.kicker': 'The Menu',
+    'services.title': 'Services & Prices',
+    'services.lead': 'Every set is made to order. Prices are starting prices — length, shape and design can change the final price.',
+    'services.popular': 'Most loved',
+    'services.book': 'Book',
+
+    'repair.kicker': 'Nail emergency?',
+    'repair.text': 'Snapped a nail right before the weekend? Lifted corner, crack or full break — Lis repairs it so seamlessly nobody will ever know. Quick fixes from <strong data-price="repair"></strong> per nail.',
+    'repair.p1': 'Lifted, cracked or snapped nails',
+    'repair.p2': 'Broken tips & extensions rebuilt',
+    'repair.p3': 'Colour matched to your current set',
+    'repair.cta': 'Book a repair',
+
+    'styles.kicker': 'Style Menu',
+    'styles.title': 'Find your vibe',
+    'styles.lead': 'Pick a look to bring to your appointment — or bring your own inspo. Lis loves a challenge.',
+    'styles.book': 'Book this look',
+    'styles.fb': "See Lis's latest sets on Facebook",
+
+    'about.kicker': 'Meet the artist',
+    'about.title': "Hi, I'm Lis",
+    'about.p1': 'You-nique by Lis is my nail studio in Lelydorp, built on one simple idea: no two clients are the same — so no two sets should be either.',
+    'about.p2': "Whether you want clean everyday nails, a bold statement set or a quick rescue for a broken nail, you get my full attention, a relaxed chair and nails you'll keep staring at.",
+    'about.stat1': 'Facebook family',
+    'about.stat2': 'Private appointments',
+    'about.stat3': 'Designs, all yours',
+
+    'book.kicker': 'Online booking',
+    'book.title': 'Book your appointment',
+    'book.lead': "Choose your service, pick a time that suits you and you're done. Lis confirms every booking personally on WhatsApp.",
+
+    'b.step1': 'Services',
+    'b.step2': 'Date & time',
+    'b.step3': 'Your details',
+    'b.step4': 'Done',
+    'b.chooseTitle': 'What are we doing today?',
+    'b.chooseHint': 'Select one or more services.',
+    'b.next': 'Continue',
+    'b.back': 'Back',
+    'b.dateTitle': 'Pick a day',
+    'b.timeTitle': 'Pick a time',
+    'b.pickDay': 'Select a highlighted day to see available times.',
+    'b.noSlots': 'No times left on this day — try another one.',
+    'b.loading': 'Checking availability…',
+    'b.morning': 'Morning',
+    'b.afternoon': 'Afternoon',
+    'b.evening': 'Evening',
+    'b.detailsTitle': 'Almost done!',
+    'b.name': 'Your name',
+    'b.phone': 'WhatsApp number',
+    'b.email': 'Email (optional)',
+    'b.notes': 'Design wishes or notes (optional)',
+    'b.notesPh': 'e.g. long almond, nude with gold chrome…',
+    'b.policy': 'By booking you agree to arrive on time and to cancel at least 24 hours in advance.',
+    'b.submit': 'Request appointment',
+    'b.submitWa': 'Send request via WhatsApp',
+    'b.sending': 'Sending…',
+    'b.summary': 'Your appointment',
+    'b.total': 'Total from',
+    'b.duration': 'Duration',
+    'b.when': 'When',
+    'b.nothing': 'No services selected yet.',
+    'b.doneTitlePending': 'Request received!',
+    'b.doneTitleConfirmed': "You're booked in!",
+    'b.doneTextPending': 'Lis will confirm your appointment on WhatsApp shortly. Want to say hi or send your inspo pics? Tap the button below.',
+    'b.doneTextConfirmed': 'Your appointment is confirmed. See you soon!',
+    'b.ref': 'Booking reference',
+    'b.waBtn': 'Message Lis on WhatsApp',
+    'b.icsBtn': 'Add to calendar',
+    'b.again': 'Book another appointment',
+    'b.staticNote': 'Live availability is offline right now — choose your preferred time and Lis will confirm it on WhatsApp.',
+    'b.doneStaticTitle': 'Almost there!',
+    'b.doneStaticText': "WhatsApp opened with your request — just press send and Lis will confirm your time. Didn't open? Use the button below.",
+    'b.errService': 'Please choose at least one service.',
+    'b.errSlot': 'Please choose a day and time.',
+    'b.errName': 'Please enter your name.',
+    'b.errPhone': 'Please enter a valid WhatsApp number.',
+    'b.errNetwork': 'Could not reach the booking system. Please try again or message us on WhatsApp.',
+    'b.waBooked': "Hi Lis! 💅 I just booked online.\nRef: {ref}\nName: {name}\nService: {services}\nDate: {date} at {time}",
+    'b.waRequest': "Hi Lis! 💅 I'd like to book an appointment.\nName: {name}\nService: {services}\nPreferred: {date} at {time}",
+    'b.waNotes': 'Notes: {notes}',
+    'b.lookNote': 'Look: {look}',
+
+    'visit.kicker': 'Visit the salon',
+    'visit.title': 'Hours & location',
+    'visit.hours': 'Opening hours',
+    'visit.byAppt': 'Appointments only — book online or via WhatsApp.',
+    'visit.closed': 'Closed',
+    'visit.find': 'Find us',
+    'visit.directions': 'Get directions',
+    'visit.policies': 'Good to know',
+    'policy.1': 'Please arrive on time — your slot is reserved just for you.',
+    'policy.2': 'Need to cancel or reschedule? Let us know at least 24 hours ahead.',
+    'policy.3': 'Got inspo? Bring a screenshot — we love it.',
+    'policy.4': 'Coming for a refill on a set done elsewhere? Mention it in your booking.',
+
+    'footer.tag': 'Nails as unique as you.',
+    'footer.staff': 'Salon login',
+    'wa.hello': 'Hi Lis! 💅 I have a question about an appointment.',
+  },
+
+  nl: {
+    'nav.services': 'Diensten',
+    'nav.styles': 'Styles',
+    'nav.about': 'Over Lis',
+    'nav.visit': 'Bezoek',
+    'nav.book': 'Boek nu',
+
+    'hero.eyebrow': 'Nagelsalon · Lelydorp, Suriname',
+    'hero.lead': 'Acryl, polygel, gellak en custom nail art — met liefde gemaakt door Lis, voor nagels zo uniek als jij.',
+    'hero.cta1': 'Boek je afspraak',
+    'hero.cta2': 'Bekijk prijzen',
+    'hero.badge1': 'Facebook volgers',
+    'hero.badge2': 'online boeken',
+    'hero.badge3': 'persoonlijke aandacht',
+
+    'services.kicker': 'Het Menu',
+    'services.title': 'Diensten & Prijzen',
+    'services.lead': 'Elke set wordt op maat gemaakt. Dit zijn vanaf-prijzen — lengte, vorm en design bepalen de eindprijs.',
+    'services.popular': 'Favoriet',
+    'services.book': 'Boek',
+
+    'repair.kicker': 'Nagel-noodgeval?',
+    'repair.text': 'Net voor het weekend een nagel gebroken? Losse hoek, scheurtje of helemaal af — Lis repareert het zo naadloos dat niemand het merkt. Snelle fix vanaf <strong data-price="repair"></strong> per nagel.',
+    'repair.p1': 'Losse, gescheurde of gebroken nagels',
+    'repair.p2': 'Gebroken tips & verlengingen hersteld',
+    'repair.p3': 'Kleur afgestemd op je huidige set',
+    'repair.cta': 'Boek een reparatie',
+
+    'styles.kicker': 'Stijlmenu',
+    'styles.title': 'Vind jouw vibe',
+    'styles.lead': 'Kies een look voor je afspraak — of neem je eigen inspiratie mee. Lis houdt van een uitdaging.',
+    'styles.book': 'Boek deze look',
+    'styles.fb': 'Bekijk de nieuwste sets van Lis op Facebook',
+
+    'about.kicker': 'Maak kennis',
+    'about.title': 'Hoi, ik ben Lis',
+    'about.p1': 'You-nique by Lis is mijn nagelstudio in Lelydorp, gebouwd op één simpel idee: geen twee klanten zijn hetzelfde — dus geen twee sets ook niet.',
+    'about.p2': 'Of je nu strakke nagels voor elke dag wilt, een opvallende statement-set of een snelle redding van een gebroken nagel: je krijgt mijn volle aandacht, een relaxte stoel en nagels waar je naar blijft kijken.',
+    'about.stat1': 'Facebook familie',
+    'about.stat2': 'Persoonlijke afspraken',
+    'about.stat3': 'Designs, helemaal van jou',
+
+    'book.kicker': 'Online boeken',
+    'book.title': 'Boek je afspraak',
+    'book.lead': 'Kies je dienst, kies een tijd die jou past en klaar. Lis bevestigt elke afspraak persoonlijk via WhatsApp.',
+
+    'b.step1': 'Diensten',
+    'b.step2': 'Datum & tijd',
+    'b.step3': 'Jouw gegevens',
+    'b.step4': 'Klaar',
+    'b.chooseTitle': 'Wat gaan we doen?',
+    'b.chooseHint': 'Kies één of meer diensten.',
+    'b.next': 'Verder',
+    'b.back': 'Terug',
+    'b.dateTitle': 'Kies een dag',
+    'b.timeTitle': 'Kies een tijd',
+    'b.pickDay': 'Kies een gemarkeerde dag om de beschikbare tijden te zien.',
+    'b.noSlots': 'Geen tijden meer op deze dag — probeer een andere.',
+    'b.loading': 'Beschikbaarheid ophalen…',
+    'b.morning': 'Ochtend',
+    'b.afternoon': 'Middag',
+    'b.evening': 'Avond',
+    'b.detailsTitle': 'Bijna klaar!',
+    'b.name': 'Je naam',
+    'b.phone': 'WhatsApp-nummer',
+    'b.email': 'E-mail (optioneel)',
+    'b.notes': 'Designwensen of opmerkingen (optioneel)',
+    'b.notesPh': 'bijv. lange amandel, nude met gouden chrome…',
+    'b.policy': 'Door te boeken ga je akkoord om op tijd te komen en minstens 24 uur van tevoren af te zeggen.',
+    'b.submit': 'Afspraak aanvragen',
+    'b.submitWa': 'Aanvraag sturen via WhatsApp',
+    'b.sending': 'Versturen…',
+    'b.summary': 'Jouw afspraak',
+    'b.total': 'Totaal vanaf',
+    'b.duration': 'Duur',
+    'b.when': 'Wanneer',
+    'b.nothing': 'Nog geen diensten gekozen.',
+    'b.doneTitlePending': 'Aanvraag ontvangen!',
+    'b.doneTitleConfirmed': 'Je staat ingepland!',
+    'b.doneTextPending': 'Lis bevestigt je afspraak binnenkort via WhatsApp. Wil je alvast hallo zeggen of inspiratiefoto’s sturen? Tik op de knop hieronder.',
+    'b.doneTextConfirmed': 'Je afspraak is bevestigd. Tot snel!',
+    'b.ref': 'Boekingsreferentie',
+    'b.waBtn': 'Stuur Lis een WhatsApp',
+    'b.icsBtn': 'Zet in agenda',
+    'b.again': 'Nog een afspraak boeken',
+    'b.staticNote': 'Live beschikbaarheid is nu offline — kies je voorkeurstijd en Lis bevestigt deze via WhatsApp.',
+    'b.doneStaticTitle': 'Bijna klaar!',
+    'b.doneStaticText': 'WhatsApp is geopend met je aanvraag — druk op verzenden en Lis bevestigt je tijd. Niet geopend? Gebruik de knop hieronder.',
+    'b.errService': 'Kies minstens één dienst.',
+    'b.errSlot': 'Kies een dag en tijd.',
+    'b.errName': 'Vul je naam in.',
+    'b.errPhone': 'Vul een geldig WhatsApp-nummer in.',
+    'b.errNetwork': 'Het boekingssysteem is niet bereikbaar. Probeer opnieuw of stuur ons een WhatsApp.',
+    'b.waBooked': 'Hoi Lis! 💅 Ik heb net online geboekt.\nRef: {ref}\nNaam: {name}\nDienst: {services}\nDatum: {date} om {time}',
+    'b.waRequest': 'Hoi Lis! 💅 Ik wil graag een afspraak maken.\nNaam: {name}\nDienst: {services}\nVoorkeur: {date} om {time}',
+    'b.waNotes': 'Opmerkingen: {notes}',
+    'b.lookNote': 'Look: {look}',
+
+    'visit.kicker': 'Bezoek de salon',
+    'visit.title': 'Openingstijden & locatie',
+    'visit.hours': 'Openingstijden',
+    'visit.byAppt': 'Alleen op afspraak — boek online of via WhatsApp.',
+    'visit.closed': 'Gesloten',
+    'visit.find': 'Vind ons',
+    'visit.directions': 'Routebeschrijving',
+    'visit.policies': 'Goed om te weten',
+    'policy.1': 'Kom op tijd — je tijdslot is speciaal voor jou gereserveerd.',
+    'policy.2': 'Afzeggen of verzetten? Laat het minstens 24 uur van tevoren weten.',
+    'policy.3': 'Inspiratie? Neem een screenshot mee — daar houden we van.',
+    'policy.4': 'Kom je opvullen en is je set ergens anders gezet? Vermeld het bij je boeking.',
+
+    'footer.tag': 'Nagels zo uniek als jij.',
+    'footer.staff': 'Salon login',
+    'wa.hello': 'Hoi Lis! 💅 Ik heb een vraag over een afspraak.',
+  },
+};
+
+const STORAGE_KEY = 'younique-lang';
+const listeners = new Set();
+
+function initialLang() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === 'en' || saved === 'nl') return saved;
+  } catch {
+    /* storage unavailable */
+  }
+  return (navigator.language || '').toLowerCase().startsWith('nl') ? 'nl' : 'en';
+}
+
+let lang = initialLang();
+
+export const getLang = () => lang;
+export const locale = () => (lang === 'nl' ? 'nl-NL' : 'en-GB');
+
+export function t(key, vars = {}) {
+  const text = dict[lang][key] ?? dict.en[key] ?? key;
+  return text.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
+}
+
+export function applyTranslations(root = document) {
+  root.querySelectorAll('[data-i18n]').forEach((el) => (el.textContent = t(el.dataset.i18n)));
+  root.querySelectorAll('[data-i18n-html]').forEach((el) => (el.innerHTML = t(el.dataset.i18nHtml)));
+  root.querySelectorAll('[data-i18n-ph]').forEach((el) => (el.placeholder = t(el.dataset.i18nPh)));
+}
+
+export function setLang(next) {
+  if (next === lang || !dict[next]) return;
+  lang = next;
+  try {
+    localStorage.setItem(STORAGE_KEY, next);
+  } catch {
+    /* storage unavailable */
+  }
+  document.documentElement.lang = next;
+  applyTranslations();
+  listeners.forEach((fn) => fn(next));
+}
+
+export const onLangChange = (fn) => listeners.add(fn);

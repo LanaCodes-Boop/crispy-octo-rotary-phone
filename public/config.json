@@ -1,0 +1,140 @@
+{
+  "_readme": "Salon settings used by the website AND the booking server. Values marked PLACEHOLDER could not be read from the Facebook page (it needs a login) - replace them before going live.",
+
+  "name": "You-nique by Lis",
+  "tagline": "You break it? We fake it 🥰",
+  "city": "Lelydorp, Suriname",
+  "timezone": "America/Paramaribo",
+  "currency": "SRD",
+
+  "contact": {
+    "whatsapp": "5970000000",
+    "phoneDisplay": "+597 000-0000",
+    "address": "Lelydorp, Wanica — exact address shared after booking",
+    "mapsQuery": "Lelydorp, Suriname",
+    "facebook": "https://www.facebook.com/p/You-nique-by-Lis-61551937988644/",
+    "_PLACEHOLDER": "whatsapp + phoneDisplay + address"
+  },
+
+  "hours": {
+    "_PLACEHOLDER": "Opening hours per weekday, 24h clock. null = closed.",
+    "mon": null,
+    "tue": ["09:00", "18:00"],
+    "wed": ["09:00", "18:00"],
+    "thu": ["09:00", "18:00"],
+    "fri": ["09:00", "19:00"],
+    "sat": ["08:00", "16:00"],
+    "sun": null
+  },
+
+  "booking": {
+    "slotMinutes": 30,
+    "minNoticeHours": 3,
+    "maxDaysAhead": 60,
+    "bufferMinutes": 0,
+    "autoConfirm": false
+  },
+
+  "services": [
+    {
+      "id": "gel-polish",
+      "icon": "polish",
+      "minutes": 45,
+      "price": 250,
+      "name": { "en": "Gel Polish", "nl": "Gellak" },
+      "desc": {
+        "en": "Long-lasting glossy colour on your natural nails, cured for a chip-free shine.",
+        "nl": "Langhoudende glanzende kleur op je eigen nagels, uitgehard voor een chipvrije glans."
+      }
+    },
+    {
+      "id": "acrylic-full",
+      "icon": "nail",
+      "minutes": 105,
+      "price": 450,
+      "popular": true,
+      "name": { "en": "Acrylic Full Set", "nl": "Acryl Nieuwe Set" },
+      "desc": {
+        "en": "Strong extensions shaped to your style — almond, coffin, square or stiletto.",
+        "nl": "Sterke verlenging in jouw vorm — amandel, coffin, vierkant of stiletto."
+      }
+    },
+    {
+      "id": "acrylic-fill",
+      "icon": "refill",
+      "minutes": 75,
+      "price": 325,
+      "name": { "en": "Acrylic Refill", "nl": "Acryl Opvullen" },
+      "desc": {
+        "en": "Keep your set fresh: regrowth filled, reshaped and polished (2–3 weeks).",
+        "nl": "Houd je set fris: uitgroei opgevuld, bijgevijld en gelakt (2–3 weken)."
+      }
+    },
+    {
+      "id": "polygel-full",
+      "icon": "gem",
+      "minutes": 90,
+      "price": 425,
+      "name": { "en": "Polygel Full Set", "nl": "Polygel Nieuwe Set" },
+      "desc": {
+        "en": "Lightweight, flexible extensions with a natural feel and zero odour.",
+        "nl": "Lichte, flexibele verlenging met een natuurlijk gevoel en zonder geur."
+      }
+    },
+    {
+      "id": "builder-gel",
+      "icon": "shield",
+      "minutes": 75,
+      "price": 375,
+      "name": { "en": "Builder Gel (BIAB)", "nl": "Builder Gel (BIAB)" },
+      "desc": {
+        "en": "Strengthening overlay that helps your natural nails grow long and healthy.",
+        "nl": "Versterkende laag die je eigen nagels helpt lang en gezond te groeien."
+      }
+    },
+    {
+      "id": "nail-art",
+      "icon": "brush",
+      "minutes": 30,
+      "price": 100,
+      "name": { "en": "Nail Art Add-on", "nl": "Nail Art Extra" },
+      "desc": {
+        "en": "Chrome, French, ombré, gems, 3D flowers or hand-painted designs.",
+        "nl": "Chrome, French, ombré, steentjes, 3D bloemen of handgeschilderde designs."
+      }
+    },
+    {
+      "id": "gel-pedi",
+      "icon": "foot",
+      "minutes": 60,
+      "price": 300,
+      "name": { "en": "Pedicure + Gel Toes", "nl": "Pedicure + Gellak Tenen" },
+      "desc": {
+        "en": "Soak, scrub, cuticle care and gel colour for pretty, sandal-ready feet.",
+        "nl": "Weken, scrub, nagelriemverzorging en gellak voor mooie slippervoeten."
+      }
+    },
+    {
+      "id": "repair",
+      "icon": "heart",
+      "minutes": 15,
+      "price": 50,
+      "name": { "en": "Nail Repair (per nail)", "nl": "Nagel Reparatie (per nagel)" },
+      "desc": {
+        "en": "You break it? We fake it! Quick fix for a broken or lifted nail.",
+        "nl": "You break it? We fake it! Snelle fix voor een gebroken of losse nagel."
+      }
+    },
+    {
+      "id": "removal",
+      "icon": "drop",
+      "minutes": 30,
+      "price": 100,
+      "name": { "en": "Soak-off Removal", "nl": "Verwijderen (soak-off)" },
+      "desc": {
+        "en": "Gentle removal of gel, acrylic or polygel with nourishing cuticle oil.",
+        "nl": "Zacht verwijderen van gel, acryl of polygel met verzorgende nagelriemolie."
+      }
+    }
+  ]
+}

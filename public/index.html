@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>You-nique by Lis · Nail Salon Lelydorp</title>
+  <meta name="description" content="You-nique by Lis — nail salon in Lelydorp, Suriname. Acrylics, polygel, gel polish, nail art and quick repairs. You break it? We fake it. Book online 24/7." />
+  <meta name="theme-color" content="#2a0712" />
+  <meta property="og:title" content="You-nique by Lis · Nail Salon Lelydorp" />
+  <meta property="og:description" content="You break it? We fake it 🥰 Acrylics, polygel, gel polish & nail art in Lelydorp. Book online." />
+  <meta property="og:image" content="/images/lis.jpg" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <!-- Shared SVG gradients, shapes and icons (kept rendered so every browser can reference them) -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="g-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#a77a26" /><stop offset=".3" stop-color="#f0d48e" /><stop offset=".52" stop-color="#c99a3c" /><stop offset=".76" stop-color="#f7e6b0" /><stop offset="1" stop-color="#a77a26" />
+      </linearGradient>
+      <radialGradient id="g-disc" cx=".5" cy=".4" r=".62">
+        <stop offset="0" stop-color="#94264a" /><stop offset=".55" stop-color="#5a1027" /><stop offset="1" stop-color="#2a0712" />
+      </radialGradient>
+      <linearGradient id="g-wine" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#b0365a" /><stop offset=".5" stop-color="#741634" /><stop offset="1" stop-color="#3d0a1b" />
+      </linearGradient>
+      <linearGradient id="g-chrome" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#8f6420" /><stop offset=".25" stop-color="#f7e6b0" /><stop offset=".45" stop-color="#c99a3c" /><stop offset=".62" stop-color="#fff4d1" /><stop offset=".85" stop-color="#b8892f" /><stop offset="1" stop-color="#7d5518" />
+      </linearGradient>
+      <linearGradient id="g-milk" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0" stop-color="#efc9cc" /><stop offset="1" stop-color="#f9e6e4" />
+      </linearGradient>
+      <linearGradient id="g-ombre" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0" stop-color="#e48fa1" /><stop offset=".55" stop-color="#f6d6dc" /><stop offset="1" stop-color="#fffaf6" />
+      </linearGradient>
+      <linearGradient id="g-noir" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#5a1027" /><stop offset="1" stop-color="#12020a" />
+      </linearGradient>
+      <path id="almond" d="M-32,-6 C-36,-70 -26,-130 0,-176 C26,-130 36,-70 32,-6 C22,4 -22,4 -32,-6 Z" />
+      <clipPath id="clip-almond"><use href="#almond" /></clipPath>
+      <filter id="f-shadow" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#12020a" flood-opacity=".45" />
+      </filter>
+      <filter id="f-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+      </filter>
+    </defs>
+    <symbol id="sparkle" viewBox="-10 -10 20 20"><path d="M0-10C1-2 2-1 10 0 2 1 1 2 0 10-1 2-2 1-10 0-2-1-1-2 0-10Z" /></symbol>
+    <symbol id="crown" viewBox="0 0 24 24"><path d="M3 8.5l4.2 3.6L12 5l4.8 7.1L21 8.5 19.2 18H4.8z" /><circle cx="3" cy="7.6" r="1.5" /><circle cx="12" cy="3.6" r="1.6" /><circle cx="21" cy="7.6" r="1.5" /><rect x="5" y="19.3" width="14" height="1.9" rx=".9" /></symbol>
+    <symbol id="i-polish" viewBox="0 0 24 24"><path d="M9.5 2h5v5.5h-5z" /><path d="M7.5 10a2.5 2.5 0 0 1 2.5-2.5h4a2.5 2.5 0 0 1 2.5 2.5v9a3 3 0 0 1-3 3h-3a3 3 0 0 1-3-3z" /><path d="M10 14.5h4" /></symbol>
+    <symbol id="i-nail" viewBox="0 0 24 24"><path d="M8 21c-.6-5 .2-11 4-18 3.8 7 4.6 13 4 18-2.6 1.3-5.4 1.3-8 0z" /><path d="M9.3 17.2c1.8.7 3.6.7 5.4 0" /></symbol>
+    <symbol id="i-refill" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7" /><path d="M20 3.5v4h-4" /><path d="M10.4 15.5c-.2-2 .1-4.2 1.6-6.8 1.5 2.6 1.8 4.8 1.6 6.8-1 .5-2.2.5-3.2 0z" /></symbol>
+    <symbol id="i-gem" viewBox="0 0 24 24"><path d="M6.5 3.5h11L22 9.5l-10 11-10-11z" /><path d="M2 9.5h20M12 20.5 8.5 9.5l3.5-6 3.5 6z" /></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.8l8 3v6.2c0 5-3.5 8.2-8 9.2-4.5-1-8-4.2-8-9.2V5.8z" /><path d="M8.6 12.2l2.4 2.4 4.4-4.8" /></symbol>
+    <symbol id="i-brush" viewBox="0 0 24 24"><path d="M18.5 2.8l2.7 2.7-8.6 8.6-2.7-2.7z" /><path d="M9.9 11.4 7.6 13.7c-1.6 1.6-.8 3.9-3.6 6 3.6.6 6.3-.6 7.4-2.4l1.2-1.6" /></symbol>
+    <symbol id="i-foot" viewBox="0 0 24 24"><path d="M8.6 21.5c-2.6 0-3.6-2.4-3.1-5 .4-2 1-4.4.5-6.9-.5-2.6 1.1-4.3 3.2-3.8 2.6.6 3.1 3.6 2.6 6.5-.4 2.4 0 3.9.3 5.4.4 2-1 3.8-3.5 3.8z" /><circle cx="13.4" cy="4.4" r="1.4" /><circle cx="16" cy="5.6" r="1.1" /><circle cx="17.9" cy="7.4" r="1" /><circle cx="19.2" cy="9.6" r=".9" /></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-7.5-10.4A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 7.5 2.7c0 5.8-7.5 10.4-7.5 10.4z" /><path d="M12.4 8.6l-1.3 3 2 1.3-1.2 3.1" /></symbol>
+    <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6.2 6.6 6.2 11.3a6.2 6.2 0 0 1-12.4 0C5.8 9.6 12 3 12 3z" /><path d="M9 14.5a3 3 0 0 0 3 3" /></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z" /><circle cx="12" cy="9.5" r="2.5" /></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5" /></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.5 5.5 16 12l-6.5 6.5" /></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5" /><path d="M3.5 10h17M8 3v4M16 3v4" /></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.9L2.2 21.8l4.8-1.3A9.8 9.8 0 1 0 12 2.2zm0 17.8a8 8 0 0 1-4.2-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6.5-.1 1.4-.6 1.6-1.1s.2-1 .1-1.1l-.6-.4z" /></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M13.6 21.5v-8h2.7l.4-3.2h-3.1v-2c0-.9.3-1.5 1.6-1.5h1.6V3.9a22 22 0 0 0-2.4-.1c-2.4 0-4 1.4-4 4.1v2.4H7.7v3.2h2.7v8z" /></symbol>
+  </svg>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="You-nique by Lis — home">
+        <svg class="brand-crown" aria-hidden="true"><use href="#crown" /></svg>
+        <span class="brand-script">You-nique</span>
+        <span class="brand-by">by Lis</span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Main">
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#styles" data-i18n="nav.styles">Styles</a>
+        <a href="#about" data-i18n="nav.about">About Lis</a>
+        <a href="#visit" data-i18n="nav.visit">Visit</a>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="nl" aria-pressed="false">NL</button>
+        </div>
+        <a class="btn btn-gold btn-sm" href="#book" data-i18n="nav.book">Book now</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><svg aria-hidden="true"><use href="#sparkle" /></svg><span data-i18n="hero.eyebrow">Nail Salon · Lelydorp, Suriname</span></p>
+          <h1 class="hero-title"><span class="script gold-text">You-nique</span> <span class="hero-by">by Lis</span></h1>
+          <p class="hero-tag">You break it? <em>We fake it.</em> <span aria-hidden="true">🥰</span></p>
+          <p class="hero-lead" data-i18n="hero.lead">Acrylics, polygel, gel polish and custom nail art — crafted by Lis for nails as unique as you are.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-gold" href="#book"><svg aria-hidden="true"><use href="#i-calendar" /></svg><span data-i18n="hero.cta1">Book your appointment</span></a>
+            <a class="btn btn-ghost" href="#services" data-i18n="hero.cta2">View prices</a>
+          </div>
+          <ul class="hero-badges">
+            <li><strong>1.3K+</strong> <span data-i18n="hero.badge1">Facebook followers</span></li>
+            <li><strong>24/7</strong> <span data-i18n="hero.badge2">online booking</span></li>
+            <li><strong>1:1</strong> <span data-i18n="hero.badge3">personal attention</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-visual">
+          <svg class="hero-art" viewBox="0 0 560 580" role="img" aria-label="A fan of hand-painted nail swatches beside a bottle of burgundy polish">
+            <circle cx="280" cy="290" r="268" fill="none" stroke="url(#g-gold)" stroke-width="1" stroke-dasharray="2 9" opacity=".7" class="spin-slow" />
+            <circle cx="280" cy="290" r="250" fill="none" stroke="url(#g-gold)" stroke-width="1.2" opacity=".55" />
+            <circle cx="280" cy="290" r="232" fill="url(#g-disc)" />
+            <circle cx="280" cy="290" r="232" fill="none" stroke="url(#g-gold)" stroke-width="3" />
+
+            <!-- blooms -->
+            <g class="bloom" transform="translate(96 438)">
+              <g fill="#e7a2b2"><ellipse rx="15" ry="27" transform="rotate(0) translate(0 -22)" /><ellipse rx="15" ry="27" transform="rotate(72) translate(0 -22)" /><ellipse rx="15" ry="27" transform="rotate(144) translate(0 -22)" /><ellipse rx="15" ry="27" transform="rotate(216) translate(0 -22)" /><ellipse rx="15" ry="27" transform="rotate(288) translate(0 -22)" /></g>
+              <g fill="#f6d0d8" opacity=".9"><ellipse rx="8" ry="16" transform="rotate(36) translate(0 -16)" /><ellipse rx="8" ry="16" transform="rotate(108) translate(0 -16)" /><ellipse rx="8" ry="16" transform="rotate(180) translate(0 -16)" /><ellipse rx="8" ry="16" transform="rotate(252) translate(0 -16)" /><ellipse rx="8" ry="16" transform="rotate(324) translate(0 -16)" /></g>
+              <circle r="9" fill="url(#g-gold)" />
+            </g>
+            <g class="bloom" transform="translate(58 360) scale(.55)">
+              <g fill="#d98a9a"><ellipse rx="15" ry="27" transform="rotate(0) translate(0 -22)" /><ellipse rx="15" ry="27" transform="rotate(72) translate(0 -22)" /><ellipse rx="15" ry="27" transform="rotate(144) translate(0 -22)" /><ellipse rx="15" ry="27" transform="rotate(216) translate(0 -22)" /><ellipse rx="15" ry="27" transform="rotate(288) translate(0 -22)" /></g>
+              <circle r="9" fill="url(#g-gold)" />
+            </g>
+
+            <!-- nail swatch fan -->
+            <g transform="translate(280 478) scale(1.1)" filter="url(#f-shadow)">
+              <g transform="rotate(-50)">
+                <rect x="-3" y="-84" width="6" height="84" rx="3" fill="url(#g-gold)" />
+                <g transform="translate(0 -82)"><use href="#almond" fill="url(#g-wine)" /><path d="M-18-24C-21-70-15-116-3-150" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".3" /></g>
+              </g>
+              <g transform="rotate(50)">
+                <rect x="-3" y="-84" width="6" height="84" rx="3" fill="url(#g-gold)" />
+                <g transform="translate(0 -82)"><use href="#almond" fill="url(#g-noir)" />
+                  <path transform="translate(0 -92) scale(.9)" d="M0 10S-12 3-12-5a6.5 6.5 0 0 1 12-3.3A6.5 6.5 0 0 1 12-5c0 8-12 15-12 15z" fill="#e7577a" />
+                  <path d="M-18-24C-21-70-15-116-3-150" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".22" /></g>
+              </g>
+              <g transform="rotate(-25)">
+                <rect x="-3" y="-84" width="6" height="84" rx="3" fill="url(#g-gold)" />
+                <g transform="translate(0 -82)"><use href="#almond" fill="url(#g-milk)" />
+                  <g clip-path="url(#clip-almond)"><path d="M-40-118Q0-92 40-118V-190H-40Z" fill="#fffaf7" /></g>
+                  <path d="M-18-24C-21-70-15-116-3-150" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".5" /></g>
+              </g>
+              <g transform="rotate(25)">
+                <rect x="-3" y="-84" width="6" height="84" rx="3" fill="url(#g-gold)" />
+                <g transform="translate(0 -82)"><use href="#almond" fill="url(#g-ombre)" />
+                  <g fill="url(#g-gold)"><circle cx="-6" cy="-150" r="2.2" /><circle cx="8" cy="-138" r="1.6" /><circle cx="-12" cy="-128" r="1.4" /><circle cx="4" cy="-120" r="2" /><circle cx="14" cy="-110" r="1.2" /><circle cx="-4" cy="-104" r="1.3" /><circle cx="-16" cy="-112" r="1.8" /><circle cx="9" cy="-158" r="1.2" /></g>
+                  <path d="M-18-24C-21-70-15-116-3-150" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".45" /></g>
+              </g>
+              <g>
+                <rect x="-3" y="-84" width="6" height="84" rx="3" fill="url(#g-gold)" />
+                <g transform="translate(0 -82)"><use href="#almond" fill="url(#g-chrome)" />
+                  <use href="#crown" x="-11" y="-70" width="22" height="22" fill="#5a1027" opacity=".85" />
+                  <path d="M-18-24C-21-70-15-116-3-150" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none" opacity=".55" /></g>
+              </g>
+              <circle r="17" fill="none" stroke="url(#g-gold)" stroke-width="7" />
+              <circle r="6" fill="#2a0712" />
+            </g>
+
+            <!-- polish bottle -->
+            <g transform="translate(458 392) rotate(8)" filter="url(#f-shadow)">
+              <rect x="-15" y="-78" width="30" height="70" rx="7" fill="url(#g-gold)" />
+              <rect x="-9" y="-72" width="5" height="56" rx="2.5" fill="#fff" opacity=".35" />
+              <rect x="-21" y="-12" width="42" height="14" rx="4" fill="#b8892f" />
+              <rect x="-46" y="0" width="92" height="104" rx="26" fill="url(#g-wine)" />
+              <rect x="-35" y="12" width="11" height="76" rx="5.5" fill="#fff" opacity=".22" />
+              <use href="#crown" x="-14" y="38" width="28" height="28" fill="url(#g-gold)" />
+            </g>
+
+            <!-- sparkles -->
+            <g fill="url(#g-gold)">
+              <use class="twinkle" href="#sparkle" x="96" y="120" width="34" height="34" />
+              <use class="twinkle t2" href="#sparkle" x="452" y="130" width="22" height="22" />
+              <use class="twinkle t3" href="#sparkle" x="500" y="520" width="18" height="18" />
+              <use class="twinkle t2" href="#sparkle" x="30" y="250" width="14" height="14" />
+              <use class="twinkle" href="#sparkle" x="300" y="34" width="18" height="18" />
+              <use class="twinkle t3" href="#sparkle" x="190" y="536" width="12" height="12" />
+            </g>
+          </svg>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#services" aria-label="Scroll to services"><span></span></a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Acrylics</span><i></i><span>Polygel</span><i></i><span>Gel Polish</span><i></i><span>Nail Art</span><i></i><span>Chrome</span><i></i><span>French</span><i></i><span>Repairs</span><i></i><span>Pedicure</span><i></i>
+        <span>Acrylics</span><i></i><span>Polygel</span><i></i><span>Gel Polish</span><i></i><span>Nail Art</span><i></i><span>Chrome</span><i></i><span>French</span><i></i><span>Repairs</span><i></i><span>Pedicure</span><i></i>
+      </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section class="section services" id="services">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker script" data-i18n="services.kicker">The Menu</p>
+          <h2 data-i18n="services.title">Services &amp; Prices</h2>
+          <div class="ornament" aria-hidden="true"><span></span><svg><use href="#crown" /></svg><span></span></div>
+          <p class="section-lead" data-i18n="services.lead">Every set is made to order. Prices are starting prices — length, shape and design can change the final price.</p>
+        </header>
+        <div class="service-grid" id="service-grid"></div>
+      </div>
+    </section>
+
+    <!-- REPAIR BAND -->
+    <section class="repair" id="repair">
+      <div class="container repair-grid">
+        <div class="repair-visual reveal">
+          <svg viewBox="0 0 340 380" role="img" aria-label="A nail repaired with a golden seam">
+            <circle cx="170" cy="190" r="150" fill="none" stroke="url(#g-gold)" stroke-dasharray="3 10" opacity=".6" class="spin-slow" />
+            <circle cx="170" cy="190" r="128" fill="#3d0a1b" />
+            <circle cx="170" cy="190" r="128" fill="none" stroke="url(#g-gold)" stroke-width="2" />
+            <g transform="translate(170 296) scale(1.08)" filter="url(#f-shadow)">
+              <use href="#almond" fill="url(#g-milk)" />
+              <g clip-path="url(#clip-almond)"><path d="M-40-128Q0-104 40-128V-190H-40Z" fill="#fffaf7" /></g>
+              <path class="seam" d="M-36-86L-22-80-14-94-2-82 8-97 18-86 36-93" fill="none" stroke="url(#g-gold)" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round" filter="url(#f-glow)" />
+              <path d="M-18-24C-21-70-15-116-3-150" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".5" />
+            </g>
+            <g fill="url(#g-gold)">
+              <use class="twinkle" href="#sparkle" x="246" y="78" width="30" height="30" />
+              <use class="twinkle t2" href="#sparkle" x="62" y="120" width="18" height="18" />
+              <use class="twinkle t3" href="#sparkle" x="262" y="250" width="14" height="14" />
+            </g>
+          </svg>
+        </div>
+        <div class="repair-copy reveal">
+          <p class="kicker script" data-i18n="repair.kicker">Nail emergency?</p>
+          <h2>You break it? <em class="gold-text">We fake it.</em></h2>
+          <p data-i18n-html="repair.text">Snapped a nail right before the weekend? Lifted corner, crack or full break — Lis repairs it so seamlessly nobody will ever know. Quick fixes from <strong data-price="repair"></strong> per nail.</p>
+          <ul class="checklist">
+            <li><svg aria-hidden="true"><use href="#i-check" /></svg><span data-i18n="repair.p1">Lifted, cracked or snapped nails</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check" /></svg><span data-i18n="repair.p2">Broken tips &amp; extensions rebuilt</span></li>
+            <li><svg aria-hidden="true"><use href="#i-check" /></svg><span data-i18n="repair.p3">Colour matched to your current set</span></li>
+          </ul>
+          <a class="btn btn-gold" href="#book" data-book-service="repair" data-i18n="repair.cta">Book a repair</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STYLES / GALLERY -->
+    <section class="section styles" id="styles">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker script" data-i18n="styles.kicker">Style Menu</p>
+          <h2 data-i18n="styles.title">Find your vibe</h2>
+          <div class="ornament" aria-hidden="true"><span></span><svg><use href="#crown" /></svg><span></span></div>
+          <p class="section-lead" data-i18n="styles.lead">Pick a look to bring to your appointment — or bring your own inspo. Lis loves a challenge.</p>
+        </header>
+        <div class="style-grid" id="style-grid"></div>
+        <p class="center reveal">
+          <a class="btn btn-outline" id="fb-link" href="#" target="_blank" rel="noopener">
+            <svg aria-hidden="true"><use href="#i-facebook" /></svg><span data-i18n="styles.fb">See Lis's latest sets on Facebook</span>
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <figure class="about-photo reveal">
+          <div class="arch"><img src="images/lis.jpg" alt="Lis, nail artist and owner of You-nique by Lis" width="720" height="720" loading="lazy" /></div>
+          <svg class="about-sparkle" aria-hidden="true"><use href="#sparkle" /></svg>
+        </figure>
+        <div class="about-copy reveal">
+          <p class="kicker script" data-i18n="about.kicker">Meet the artist</p>
+          <h2 data-i18n="about.title">Hi, I'm Lis</h2>
+          <p data-i18n="about.p1">You-nique by Lis is my nail studio in Lelydorp, built on one simple idea: no two clients are the same — so no two sets should be either.</p>
+          <p data-i18n="about.p2">Whether you want clean everyday nails, a bold statement set or a quick rescue for a broken nail, you get my full attention, a relaxed chair and nails you'll keep staring at.</p>
+          <p class="signature script">Lis</p>
+          <dl class="stats">
+            <div><dt>1.3K+</dt><dd data-i18n="about.stat1">Facebook family</dd></div>
+            <div><dt>1:1</dt><dd data-i18n="about.stat2">Private appointments</dd></div>
+            <div><dt>∞</dt><dd data-i18n="about.stat3">Designs, all yours</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section class="section booking" id="book">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="container">
+        <header class="section-head on-dark reveal">
+          <p class="kicker script" data-i18n="book.kicker">Online booking</p>
+          <h2 data-i18n="book.title">Book your appointment</h2>
+          <div class="ornament" aria-hidden="true"><span></span><svg><use href="#crown" /></svg><span></span></div>
+          <p class="section-lead" data-i18n="book.lead">Choose your service, pick a time that suits you and you're done. Lis confirms every booking personally on WhatsApp.</p>
+        </header>
+
+        <div class="booker" id="booker" aria-live="polite">
+          <ol class="steps" id="steps">
+            <li class="active"><span>1</span><em data-i18n="b.step1">Services</em></li>
+            <li><span>2</span><em data-i18n="b.step2">Date &amp; time</em></li>
+            <li><span>3</span><em data-i18n="b.step3">Your details</em></li>
+            <li><span>4</span><em data-i18n="b.step4">Done</em></li>
+          </ol>
+          <div class="booker-body">
+            <div class="booker-main" id="booker-main">
+              <noscript><p>Please enable JavaScript to book online, or message us on WhatsApp.</p></noscript>
+            </div>
+            <aside class="booker-summary" id="booker-summary"></aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISIT -->
+    <section class="section visit" id="visit">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="kicker script" data-i18n="visit.kicker">Visit the salon</p>
+          <h2 data-i18n="visit.title">Hours &amp; location</h2>
+          <div class="ornament" aria-hidden="true"><span></span><svg><use href="#crown" /></svg><span></span></div>
+        </header>
+        <div class="visit-grid">
+          <article class="card reveal">
+            <h3><svg aria-hidden="true"><use href="#i-clock" /></svg><span data-i18n="visit.hours">Opening hours</span></h3>
+            <table class="hours" id="hours-table"></table>
+            <p class="muted small" data-i18n="visit.byAppt">Appointments only — book online or via WhatsApp.</p>
+          </article>
+          <article class="card map-card reveal">
+            <svg class="mini-map" viewBox="0 0 320 150" aria-hidden="true">
+              <rect width="320" height="150" rx="16" fill="#f6e6e3" />
+              <path d="M-10 108C60 92 98 120 160 100S262 52 330 66" stroke="#fff" stroke-width="14" fill="none" />
+              <path d="M70-10C82 40 70 90 96 160M220-10c-6 46 14 90 4 170" stroke="#fff" stroke-width="9" fill="none" />
+              <path d="M-10 40C40 30 120 50 200 30S300 14 330 20" stroke="#ecd2cf" stroke-width="6" fill="none" />
+              <circle cx="160" cy="68" r="34" fill="#e1bb68" opacity=".18" />
+              <g transform="translate(160 76)"><path d="M0 0s-17-15.5-17-29a17 17 0 0 1 34 0C17-15.5 0 0 0 0z" fill="url(#g-wine)" /><use href="#crown" x="-8" y="-38" width="16" height="16" fill="url(#g-gold)" /></g>
+            </svg>
+            <h3><svg aria-hidden="true"><use href="#i-pin" /></svg><span data-i18n="visit.find">Find us</span></h3>
+            <p id="address"></p>
+            <div class="btn-row">
+              <a class="btn btn-outline btn-sm" id="directions" href="#" target="_blank" rel="noopener" data-i18n="visit.directions">Get directions</a>
+              <a class="btn btn-wa btn-sm" data-wa href="#" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-whatsapp" /></svg><span id="phone-display">WhatsApp</span></a>
+            </div>
+          </article>
+          <article class="card reveal">
+            <h3><svg aria-hidden="true"><use href="#i-heart" /></svg><span data-i18n="visit.policies">Good to know</span></h3>
+            <ul class="policy-list">
+              <li data-i18n="policy.1">Please arrive on time — your slot is reserved just for you.</li>
+              <li data-i18n="policy.2">Need to cancel or reschedule? Let us know at least 24 hours ahead.</li>
+              <li data-i18n="policy.3">Got inspo? Bring a screenshot — we love it.</li>
+              <li data-i18n="policy.4">Coming for a refill on a set done elsewhere? Mention it in your booking.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand brand-lg" href="#home">
+        <svg class="brand-crown" aria-hidden="true"><use href="#crown" /></svg>
+        <span class="brand-script">You-nique</span>
+        <span class="brand-by">by Lis</span>
+      </a>
+      <p class="footer-tag" data-i18n="footer.tag">Nails as unique as you.</p>
+      <div class="socials">
+        <a id="fb-footer" href="#" target="_blank" rel="noopener" aria-label="Facebook"><svg><use href="#i-facebook" /></svg></a>
+        <a data-wa href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg><use href="#i-whatsapp" /></svg></a>
+      </div>
+      <p class="fine">© <span id="year">2026</span> You-nique by Lis · Lelydorp, Suriname · <a href="/admin" data-i18n="footer.staff">Salon login</a></p>
+    </div>
+  </footer>
+
+  <a class="wa-float" data-wa href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg aria-hidden="true"><use href="#i-whatsapp" /></svg>
+  </a>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
