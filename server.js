@@ -353,7 +353,13 @@ async function api(req, res, url) {
       if (!body.force && overlapsExisting(date, time, booking.minutes, booking.id)) {
         throw new HttpError(409, 'That time overlaps another appointment.');
       }
+      if (date !== booking.date || time !== booking.time) delete booking.remindedAt; // old reminder is stale
       Object.assign(booking, { date, time });
+    }
+    if (body.reminded !== undefined) {
+      if (typeof body.reminded !== 'boolean') throw new HttpError(400, 'Invalid reminder flag');
+      if (body.reminded) booking.remindedAt = new Date().toISOString();
+      else delete booking.remindedAt;
     }
     if (body.adminNote !== undefined) booking.adminNote = cleanMultiline(body.adminNote, 600);
     booking.updatedAt = new Date().toISOString();
