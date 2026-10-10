@@ -1,12 +1,13 @@
 // You-nique by Lis — website + booking server.
-// Zero dependencies: run with `node server.js` (Node 18+).
+// Zero dependencies: run with `node server.js` (Node 18+). On Vercel, api/index.js reuses `handle`.
 
 import { createServer } from 'node:http';
-import { readFile, writeFile, rename, mkdir, stat } from 'node:fs/promises';
-import { randomBytes, randomUUID, timingSafeEqual, createHash } from 'node:crypto';
+import { readFile, stat } from 'node:fs/promises';
+import { randomBytes, randomUUID, timingSafeEqual, createHash, createHmac } from 'node:crypto';
 import { extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DESIGN_PATTERN } from './public/js/designer-art.js';
+import { createStore } from './lib/store.js';
 import {
   addDays,
   getSlots,
@@ -22,12 +23,12 @@ import {
 const ROOT = fileURLToPath(new URL('.', import.meta.url));
 const PUBLIC_DIR = join(ROOT, 'public');
 const DATA_DIR = resolve(process.env.DATA_DIR || join(ROOT, 'data'));
-const DB_FILE = join(DATA_DIR, 'db.json');
 const PORT = Number(process.env.PORT) || 3000;
 const NOTIFY_WEBHOOK_URL = process.env.NOTIFY_WEBHOOK_URL || '';
 
 let ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
-if (!ADMIN_PASSWORD) {
+// Serverless instances can't share a generated password, so on Vercel the dashboard stays off until it's set.
+if (!ADMIN_PASSWORD && !process.env.VERCEL) {
   ADMIN_PASSWORD = randomBytes(6).toString('base64url');
   console.warn(`⚠  ADMIN_PASSWORD not set — using a temporary one for this run: ${ADMIN_PASSWORD}`);
 }
@@ -37,28 +38,12 @@ const serviceIds = new Set(config.services.map((s) => s.id));
 const STATUSES = new Set(['pending', 'confirmed', 'completed', 'cancelled']);
 
 // ---------------------------------------------------------------------------
-// Storage: a small JSON file is plenty for one salon's appointment book.
+// Storage: a JSON file locally, Upstash Redis on Vercel (see lib/store.js). `db` is (re)loaded at
+// the start of every API request; writes happen while holding the store's lock.
 
+const store = createStore({ dataDir: DATA_DIR });
 let db = { bookings: [], blocks: [] };
-try {
-  db = { ...db, ...JSON.parse(await readFile(DB_FILE, 'utf8')) };
-} catch (err) {
-  if (err.code !== 'ENOENT') throw err;
-}
-
-let saving = Promise.resolve();
-function persist() {
-  const snapshot = JSON.stringify(db, null, 2);
-  saving = saving
-    .catch(() => {})
-    .then(async () => {
-      await mkdir(DATA_DIR, { recursive: true });
-      const tmp = `${DB_FILE}.${process.pid}.tmp`;
-      await writeFile(tmp, snapshot);
-      await rename(tmp, DB_FILE);
-    });
-  return saving;
-}
+const persist = () => store.save(db);
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -76,6 +61,22 @@ class HttpError extends Error {
 }
 
 async function readBody(req, limit = 20_000) {
+  // Vercel's Node runtime may already have parsed the body for us.
+  let parsed;
+  try {
+    parsed = req.body;
+  } catch {
+    throw new HttpError(400, 'Invalid JSON');
+  }
+  if (parsed !== undefined) {
+    if (parsed === null || parsed === '') return {};
+    if (typeof parsed === 'object' && !Buffer.isBuffer(parsed)) return parsed;
+    try {
+      return JSON.parse(parsed.toString());
+    } catch {
+      throw new HttpError(400, 'Invalid JSON');
+    }
+  }
   let size = 0;
   const chunks = [];
   for await (const chunk of req) {
@@ -184,18 +185,25 @@ function throttle(ip, max = 8, windowMs = 60 * 60 * 1000) {
   recentByIp.set(ip, hits);
 }
 
-// Admin sessions live in memory; a restart simply asks Lis to log in again.
-const sessions = new Map();
+// Admin sessions are signed tokens ("<expiry>.<signature>"), so they work across serverless instances.
+// Changing ADMIN_PASSWORD (or SESSION_SECRET) logs everyone out.
 const SESSION_MS = 12 * 60 * 60 * 1000;
 const digest = (s) => createHash('sha256').update(String(s)).digest();
+const sign = (expiry) =>
+  createHmac('sha256', digest(`younique-admin:${ADMIN_PASSWORD}:${process.env.SESSION_SECRET || ''}`))
+    .update(String(expiry))
+    .digest('base64url');
 
 function requireAdmin(req) {
   const token = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
-  const expires = sessions.get(token);
-  if (!token || !expires || expires < Date.now()) {
-    sessions.delete(token);
-    throw new HttpError(401, 'Please log in again.');
-  }
+  const [expiry, signature = ''] = token.split('.');
+  const expected = sign(expiry);
+  const valid =
+    ADMIN_PASSWORD &&
+    Number(expiry) > Date.now() &&
+    signature.length === expected.length &&
+    timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
+  if (!valid) throw new HttpError(401, 'Please log in again.');
 }
 
 // ---------------------------------------------------------------------------
@@ -242,28 +250,27 @@ async function api(req, res, url) {
     };
     db.bookings.push(booking);
     await persist();
-    notify(booking);
+    await notify(booking); // awaited: serverless functions may freeze once the response is sent
     return json(res, 201, { booking: publicBooking(booking) });
   }
 
   // --- Admin -------------------------------------------------------------
   if (pathname === '/api/admin/login' && method === 'POST') {
     const { password } = await readBody(req);
+    if (!ADMIN_PASSWORD) throw new HttpError(503, 'Set the ADMIN_PASSWORD environment variable to use the dashboard.');
     if (!timingSafeEqual(digest(password), digest(ADMIN_PASSWORD))) {
       await new Promise((r) => setTimeout(r, 600));
       throw new HttpError(401, 'Wrong password.');
     }
-    const token = randomBytes(32).toString('base64url');
-    sessions.set(token, Date.now() + SESSION_MS);
-    return json(res, 200, { token });
+    const expiry = Date.now() + SESSION_MS;
+    return json(res, 200, { token: `${expiry}.${sign(expiry)}` });
   }
 
   if (!pathname.startsWith('/api/admin/')) throw new HttpError(404, 'Not found');
   requireAdmin(req);
 
   if (pathname === '/api/admin/logout' && method === 'POST') {
-    sessions.delete((req.headers.authorization || '').replace(/^Bearer\s+/i, ''));
-    return json(res, 200, { ok: true });
+    return json(res, 200, { ok: true }); // tokens are stateless; the dashboard simply forgets it
   }
 
   if (pathname === '/api/admin/bookings' && method === 'GET') {
@@ -395,13 +402,36 @@ async function serveStatic(req, res, url) {
 
 // ---------------------------------------------------------------------------
 
-const server = createServer(async (req, res) => {
+async function handleApi(req, res, url) {
+  if (url.pathname === '/api/health') {
+    // Without storage the site switches to "request via WhatsApp" mode instead of losing bookings.
+    return store ? json(res, 200, { ok: true }) : json(res, 503, { ok: false, error: 'No storage configured' });
+  }
+  if (!store) throw new HttpError(503, 'Online booking is not set up yet — please message us on WhatsApp.');
+  const writes = req.method !== 'GET' && req.method !== 'HEAD';
+  const release = writes ? await store.lock() : null;
+  try {
+    db = await store.load();
+    return await api(req, res, url);
+  } finally {
+    await release?.();
+  }
+}
+
+/** Handles one HTTP request. Used by the local server below and by api/index.js on Vercel. */
+export async function handle(req, res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   const url = new URL(req.url, 'http://localhost');
+  // vercel.json rewrites /api/<path> to /api/index?__path=<path>
+  const rewritten = url.searchParams.get('__path');
+  if (rewritten !== null) {
+    url.pathname = `/api/${rewritten}`;
+    url.searchParams.delete('__path');
+  }
   try {
-    if (url.pathname.startsWith('/api/')) return await api(req, res, url);
+    if (url.pathname.startsWith('/api/')) return await handleApi(req, res, url);
     if (req.method !== 'GET' && req.method !== 'HEAD') throw new HttpError(405, 'Method not allowed');
     return await serveStatic(req, res, url);
   } catch (err) {
@@ -410,10 +440,10 @@ const server = createServer(async (req, res) => {
     if (!res.headersSent) json(res, status, { error: status === 500 ? 'Something went wrong.' : err.message });
     else res.end();
   }
-});
+}
 
-server.listen(PORT, () => {
-  console.log(`💅 You-nique by Lis is live at http://localhost:${PORT}  (admin: /admin)`);
-});
-
-export default server;
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  createServer(handle).listen(PORT, () => {
+    console.log(`💅 You-nique by Lis is live at http://localhost:${PORT}  (admin: /admin)`);
+  });
+}
