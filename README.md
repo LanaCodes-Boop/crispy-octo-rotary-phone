@@ -7,7 +7,9 @@ Website for **You-nique by Lis**, nail salon in Lelydorp, Suriname — *"You bre
 - English / Dutch language switch (remembers the visitor's choice)
 - Services & prices, "Style Menu" gallery, About Lis, opening hours, location, booking policies
 - **Online booking**: choose services → pick a day and time (live availability) → enter details → booking reference, WhatsApp message to Lis, and "add to calendar" file
-- **Salon dashboard** at `/admin`: see, confirm, move or cancel appointments, message clients on WhatsApp with a pre-written text, add phone/walk-in bookings, and block time off
+- **Salon dashboard** at `/admin`: a week calendar, "tomorrow's reminders" with one-tap WhatsApp messages, confirm/move/cancel appointments, see each client's Nail Studio design, add phone/walk-in bookings, block time off — and it installs on Lis's phone like an app
+- **Manage my booking** at `/manage`: clients look up their appointment with their reference + phone number, add it to their calendar, reschedule via WhatsApp or cancel (up to 24 h before)
+- Share-ready: Open Graph image for WhatsApp/Facebook link previews, structured data for Google
 - No double bookings: the server checks every slot again right before saving
 - Works on phones, tablets and desktops
 - No dependencies — just Node.js
@@ -48,14 +50,31 @@ Run the tests with `npm test`.
 
 | Variable | Purpose |
 | --- | --- |
-| `ADMIN_PASSWORD` | Password for `/admin`. **Set this.** Without it, a temporary password is printed in the server log at startup. |
+| `ADMIN_PASSWORD` | Password for `/admin`. **Set this.** Locally, a temporary password is printed at startup if it's missing; on Vercel the dashboard stays off until it's set. |
+| `KV_REST_API_URL` + `KV_REST_API_TOKEN` | Upstash Redis storage (added automatically when you connect Upstash in Vercel). `UPSTASH_REDIS_REST_URL` / `_TOKEN` also work. |
+| `SESSION_SECRET` | Optional extra secret for dashboard logins. Changing it (or the password) logs everyone out. |
 | `PORT` | Port to listen on (default `3000`). |
 | `DATA_DIR` | Folder where appointments are saved as `db.json` (default `./data`). Use a persistent disk in production. |
 | `NOTIFY_WEBHOOK_URL` | Optional. Get a ping for each new booking — works with a Discord or Slack webhook, [ntfy.sh](https://ntfy.sh), Zapier, Make, etc. |
 
 ## Putting it online
 
-**Recommended — full booking system.** Deploy as a Node.js web service on any host (Render, Railway, Fly.io, a VPS…):
+### Vercel (recommended)
+
+Everything is pre-configured in `vercel.json`: the site is served from `public/`, and the booking API runs as one serverless function (`api/index.js`).
+
+1. **Deploy** — in this folder run `npx vercel --prod`. Log in when the browser opens, answer the questions with the defaults (new project, current directory). You get a live URL straight away.
+2. **Set the dashboard password** — `npx vercel env add ADMIN_PASSWORD production` (or Vercel dashboard → Project → Settings → Environment Variables).
+3. **Add storage for bookings** — Vercel dashboard → Project → **Storage** → *Create Database* → **Upstash for Redis** (free plan) → connect it to the project. This adds `KV_REST_API_URL` and `KV_REST_API_TOKEN`.
+4. **Redeploy** — `npx vercel --prod` again.
+
+Until steps 2–4 are done the site is fully live (Nail Studio included) and the booking form sends requests to Lis on WhatsApp instead. After step 4, live availability, the dashboard and "Manage my booking" switch on automatically.
+
+Afterwards: add the salon's domain under Project → Settings → Domains, and change `og:image` in `public/index.html` to the full `https://…/images/og.jpg` URL so Facebook shows the preview image.
+
+### Any Node.js host
+
+Deploy as a Node.js web service (Render, Railway, Fly.io, a VPS…):
 
 - Start command: `npm start`
 - Set `ADMIN_PASSWORD`
@@ -83,9 +102,13 @@ Run the tests with `npm test`.
 
 ```
 server.js            Web server + booking API (no dependencies)
+api/index.js         Vercel serverless entry (reuses server.js)
+lib/store.js         Storage: JSON file locally, Upstash Redis on Vercel
+vercel.json          Vercel settings
 public/
   index.html         The website
-  admin.html         Salon dashboard
+  admin.html         Salon dashboard (+ admin.webmanifest, sw.js: installable app)
+  manage.html        "Manage my booking" page for clients
   config.json        Salon details, hours, services & prices  ← edit me
   css/               Styles
   js/app.js          Page rendering, language switch, menus

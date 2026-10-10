@@ -422,6 +422,7 @@ async function serveStatic(req, res, url) {
   }
   if (pathname === '/') pathname = '/index.html';
   if (pathname === '/admin' || pathname === '/admin/') pathname = '/admin.html';
+  if (pathname === '/manage' || pathname === '/manage/') pathname = '/manage.html';
 
   const file = normalize(join(PUBLIC_DIR, pathname));
   if (!file.startsWith(PUBLIC_DIR + sep)) throw new HttpError(403, 'Forbidden');

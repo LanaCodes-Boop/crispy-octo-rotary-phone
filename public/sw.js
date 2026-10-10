@@ -1,13 +1,14 @@
 // Service worker for the installable appointment book (registered by admin.js, scope /admin).
 // Shell assets are served cache-first; the API is never cached. Bump VERSION when the shell list changes.
 
-const VERSION = 'younique-admin-v1';
+const VERSION = 'younique-admin-v2';
 const SHELL = [
   '/admin',
   '/css/styles.css',
   '/css/admin.css',
   '/js/admin.js',
   '/js/slots.js',
+  '/js/designer-art.js',
   '/config.json',
   '/admin.webmanifest',
   '/images/favicon.svg',

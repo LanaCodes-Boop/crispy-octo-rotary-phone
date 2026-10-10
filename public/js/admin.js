@@ -1,4 +1,11 @@
 import { WEEKDAYS, addDays, nowInZone, servicesFor, toHHMM, toMin, weekdayKey } from './slots.js';
+import { decodeDesign, handSVG } from './designer-art.js';
+
+// A client's Nail Studio design, linking back to the studio so it can be viewed full size.
+const designPreview = (b, className) =>
+  b.design && decodeDesign(b.design)
+    ? `<a class="${className}" href="/#design=${b.design}" target="_blank" rel="noopener" title="Open this design in the Nail Studio">${handSVG(decodeDesign(b.design), { label: 'Client nail design' })}<span>Nail Studio design <span aria-hidden="true">↗</span></span></a>`
+    : '';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -515,6 +522,7 @@ function bookingCard(b) {
           <span>${b.source === 'admin' ? 'Added by you' : 'Booked online'} · ${b.lang === 'nl' ? 'NL' : 'EN'}</span>
           ${b.remindedAt ? `<span class="bk-reminded">Reminder sent ✓</span>` : ''}
         </div>
+        ${designPreview(b, 'bk-design')}
         ${b.notes ? `<p class="bk-notes">${escapeHtml(b.notes)}</p>` : ''}
         ${moveForm(b)}
       </div>
@@ -597,6 +605,7 @@ function renderDetail() {
         <h3 class="dr-label">Client</h3>
         <dl class="dr-facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
       </section>
+      ${b.design ? `<section><h3 class="dr-label">Their design</h3>${designPreview(b, 'dr-design')}</section>` : ''}
       ${b.notes ? `<section><h3 class="dr-label">Notes</h3><p class="bk-notes">${escapeHtml(b.notes)}</p></section>` : ''}
       ${moving === b.id ? `<section><h3 class="dr-label">Move to</h3>${moveForm(b)}</section>` : ''}
     </div>

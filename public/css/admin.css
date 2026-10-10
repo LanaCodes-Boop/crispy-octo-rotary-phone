@@ -1866,3 +1866,53 @@
     padding: 14px 22px calc(14px + env(safe-area-inset-bottom));
   }
 }
+
+/* Client's Nail Studio design */
+.bk-design,
+.dr-design {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 4px 14px 4px 4px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--wine-700);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.bk-design:hover,
+.dr-design:hover {
+  border-color: var(--gold-400);
+}
+
+.bk-design svg,
+.dr-design svg {
+  flex: none;
+  width: 46px;
+  height: 60px;
+  border-radius: 10px;
+  background: radial-gradient(circle at 50% 40%, #fffaf6, #f2d9d5);
+}
+
+.dr-design {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 6px;
+  margin-top: 0;
+}
+
+.dr-design svg {
+  width: 100%;
+  height: 220px;
+  border-radius: 12px;
+}
+
+.dr-design > span {
+  text-align: center;
+  padding: 4px 0 2px;
+}
